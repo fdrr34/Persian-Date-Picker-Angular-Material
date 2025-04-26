@@ -1,0 +1,16 @@
+<div class="date-picker-container" [dir]="direction()">
+  <mat-form-field [appearance]="appearance()" [color]="color()">
+    <mat-label>{{ label() }}</mat-label>
+    <input matInput [matDatepicker]="picker"
+           [(ngModel)]="selectedDate"
+           (dateChange)="onDateChange($event)"
+           [min]="minDate()"
+           [max]="maxDate()"
+           [required]="required()"
+           [disabled]="disabled()"
+           [placeholder]="placeholder()">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-hint *ngIf="hint()">{{ hint() }}</mat-hint>
+  </mat-form-field>
+</div>

@@ -1,0 +1,28 @@
+.date-picker-container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Vazir', 'Tahoma', sans-serif;
+
+  mat-form-field {
+    width: 100%;
+    max-width: 300px;
+    text-align: right;
+  }
+
+  ::ng-deep {
+    .mat-calendar {
+      direction: rtl;
+    }
+
+    .mat-calendar-header {
+      direction: rtl;
+    }
+
+    .mat-calendar-table-header,
+    .mat-calendar-body-cell {
+      text-align: right;
+    }
+  }
+}
