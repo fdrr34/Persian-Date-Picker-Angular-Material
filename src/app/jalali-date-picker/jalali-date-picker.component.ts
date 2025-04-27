@@ -36,10 +36,12 @@ import { PERSIAN_DATE_FORMATS } from './jalali-date.formats';
     FormsModule,
   ],
   providers: [
-    { provide: DateAdapter, useClass: MaterialPersianDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS },
-    { provide: MAT_DATE_LOCALE, useValue: 'fa-IR' },
-  ],
+
+    {provide: MAT_DATE_LOCALE , useValue: 'fa-IR'                                        },
+    {provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS                                },
+    {provide: DateAdapter     , useClass: MaterialPersianDateAdapter     , deps: [MAT_DATE_LOCALE]},
+
+  ],         
   templateUrl: './jalali-date-picker.component.html',
   styleUrls: ['./jalali-date-picker.component.scss'],
 })

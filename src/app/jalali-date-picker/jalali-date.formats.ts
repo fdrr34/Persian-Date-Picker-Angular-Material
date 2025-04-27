@@ -1,11 +1,11 @@
 export const PERSIAN_DATE_FORMATS = {
-  parse: {
-    dateInput: 'jYYYY/jMM/jDD',
+   parse: {
+    dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
   },
   display: {
-    dateInput: 'jYYYY/jMM/jDD',
-    monthYearLabel: 'jYYYY jMMMM',
-    dateA11yLabel: 'jYYYY/jMM/jDD',
-    monthYearA11yLabel: 'jYYYY jMMMM',
-  },
+    dateInput         : 'input',
+    monthYearLabel    : {year: 'numeric', month: 'short'},
+    dateA11yLabel     : {year: 'numeric', month: 'long', day: 'numeric'},
+    monthYearA11yLabel: {year: 'numeric', month: 'long'}
+  }
 };
