@@ -6,9 +6,9 @@ import moment from 'jalali-moment';
  * Provides date manipulation and formatting methods for Angular Material Datepicker.
  */
 export class MaterialPersianDateAdapter extends DateAdapter<moment.Moment> {
-  constructor(matDateLocale: string) {
-    // @ts-ignore
-    super(matDateLocale, new Platform());
+  constructor(matDateLocale: string,platform: Platform) {
+   
+    super();
     super.setLocale("fa");
   }
 
@@ -100,11 +100,11 @@ export class MaterialPersianDateAdapter extends DateAdapter<moment.Moment> {
     return moment().locale("fa");
   }
 
-  parse(value: any, parseFormat: string | string[]): moment.Moment | null {
-    if (value && typeof value === "string") {
-      return moment(value, parseFormat, "fa");
+  parse(value: string | Date, parseFormat: string | string[]): moment.Moment | null {
+    if (typeof value === 'string') {
+      return moment(value, parseFormat, 'fa').isValid() ? moment(value, parseFormat, 'fa') : null;
     }
-    return value ? moment(value).locale("fa") : null;
+    return value instanceof Date ? moment(value).locale('fa') : null;
   }
 
   format(date: moment.Moment, displayFormat: object): string {
@@ -134,7 +134,7 @@ export class MaterialPersianDateAdapter extends DateAdapter<moment.Moment> {
     return this.clone(date).format();
   }
 
-  isDateInstance(obj: any): boolean {
+   isDateInstance(obj: string | Date): boolean {
     return moment.isMoment(obj);
   }
 
@@ -146,20 +146,18 @@ export class MaterialPersianDateAdapter extends DateAdapter<moment.Moment> {
     return moment.invalid();
   }
 
-  override deserialize(value: any): moment.Moment | null {
-    let date;
+ 
+  override deserialize(value: string | Date | moment.Moment): moment.Moment | null {
+    let date: moment.Moment | null = null;
+
     if (value instanceof Date) {
       date = moment(value);
+    } else if (typeof value === 'string' && value) {
+      date = moment(value).locale('fa');
+    } else if (value instanceof moment) {
+      date = value.locale('fa');
     }
-    if (typeof value === "string") {
-      if (!value) {
-        return null;
-      }
-      date = moment(value).locale("fa");
-    }
-    if (date && this.isValid(date)) {
-      return date;
-    }
-    return super.deserialize(value);
+
+    return date && this.isValid(date) ? date : null;
   }
 }
